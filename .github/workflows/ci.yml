@@ -1,0 +1,43 @@
+name: AI Interview Coach CI Pipeline
+
+on:
+  push:
+    branches: [ main, master, 'phase-*' ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build Shared Packages
+        run: |
+          pnpm --filter @ai-interview-coach/types build
+          pnpm --filter @ai-interview-coach/shared build
+          pnpm --filter @ai-interview-coach/ai build
+
+      - name: Run Backend Unit Tests
+        run: pnpm --filter @ai-interview-coach/api test
+
+      - name: Build NestJS Backend
+        run: pnpm --filter @ai-interview-coach/api build
+
+      - name: Build Next.js Frontend
+        run: pnpm --filter @ai-interview-coach/web build

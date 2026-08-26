@@ -1,0 +1,21 @@
+{
+  "name": "@ai-interview-coach/shared",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "check-types": "tsc --noEmit",
+    "lint": "echo \"No linting needed for shared package\""
+  },
+  "dependencies": {
+    "@ai-interview-coach/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@ai-interview-coach/config": "workspace:*",
+    "typescript": "^5.4.5"
+  }
+}

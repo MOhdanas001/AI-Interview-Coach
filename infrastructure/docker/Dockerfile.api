@@ -1,0 +1,37 @@
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Copy workspace config and package files
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
+COPY packages/ ./packages/
+COPY apps/api/ ./apps/api/
+
+# Install dependencies and build shared packages & api
+RUN pnpm install --frozen-lockfile || pnpm install
+RUN pnpm --filter @ai-interview-coach/types build
+RUN pnpm --filter @ai-interview-coach/shared build
+RUN pnpm --filter @ai-interview-coach/ai build
+RUN pnpm --filter @ai-interview-coach/api build
+
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+COPY --from=builder /app/package.json /app/pnpm-workspace.yaml ./
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/apps/api/dist ./apps/api/dist
+COPY --from=builder /app/apps/api/package.json ./apps/api/
+
+RUN pnpm install --prod --frozen-lockfile || pnpm install --prod
+
+EXPOSE 3001
+
+CMD ["node", "apps/api/dist/main.js"]

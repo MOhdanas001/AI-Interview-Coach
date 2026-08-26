@@ -1,0 +1,30 @@
+{
+  "name": "ai-interview-coach",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time AI-powered voice interview coach with personalized interviews, memory, RAG, animated avatar, and intelligent performance feedback.",
+  "scripts": {
+    "dev": "pnpm --parallel --filter \"./apps/*\" dev",
+    "dev:api": "pnpm --filter @ai-interview-coach/api start:dev",
+    "dev:web": "pnpm --filter @ai-interview-coach/web dev",
+    "build": "pnpm --recursive run build",
+    "build:api": "pnpm --filter @ai-interview-coach/api build",
+    "build:web": "pnpm --filter @ai-interview-coach/web build",
+    "test": "pnpm --recursive run test",
+    "test:api": "pnpm --filter @ai-interview-coach/api test",
+    "test:api:e2e": "pnpm --filter @ai-interview-coach/api test:e2e",
+    "lint": "pnpm --recursive run lint",
+    "check-types": "pnpm --recursive run check-types",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
