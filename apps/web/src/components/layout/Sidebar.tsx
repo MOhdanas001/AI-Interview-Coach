@@ -29,13 +29,13 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 border-r border-slate-800 bg-slate-950/60 backdrop-blur-md flex flex-col justify-between p-4 min-h-[calc(100vh-4rem)]">
+    <aside className="w-72 bg-[#E0E5EC] p-6 flex flex-col justify-between min-h-[calc(100vh-5rem)]">
       <div className="space-y-6">
-        <div className="px-3 py-2">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-            Navigation Menu
+        <div className="px-2">
+          <p className="text-xs font-bold text-[#6B7280] uppercase tracking-wider mb-4 font-display">
+            Tactile Menu
           </p>
-          <nav className="space-y-1">
+          <nav className="space-y-3">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               const Icon = item.icon;
@@ -43,21 +43,27 @@ export function Sidebar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  className={`flex items-center justify-between p-3.5 rounded-2xl transition-all ${
                     isActive
-                      ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+                      ? 'neu-well text-[#6C63FF] font-bold'
+                      : 'neu-button text-[#3D4852] font-semibold hover:text-[#6C63FF]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-sky-400' : 'text-slate-500'}`} />
-                    <span>{item.name}</span>
+                    <div
+                      className={`w-8 h-8 rounded-xl flex items-center justify-center ${
+                        isActive ? 'neu-well-sm text-[#6C63FF]' : 'neu-well-sm text-[#6B7280]'
+                      }`}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <span className="text-xs font-medium">{item.name}</span>
                   </div>
                   <span
-                    className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
+                    className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${
                       item.phase === 'Phase 1'
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                        : 'bg-slate-900 text-slate-600 border border-slate-800'
+                        ? 'neu-well-sm text-[#38B2AC]'
+                        : 'text-[#6B7280]'
                     }`}
                   >
                     {item.phase}
@@ -69,13 +75,13 @@ export function Sidebar() {
         </div>
       </div>
 
-      <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-2">
-        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400">
-          <ShieldCheck className="w-4 h-4" />
+      <div className="p-5 rounded-2xl neu-well space-y-2">
+        <div className="flex items-center gap-2 text-xs font-bold text-[#38B2AC]">
+          <ShieldCheck className="w-4 h-4 text-[#38B2AC]" />
           <span>System Status: Operational</span>
         </div>
-        <p className="text-[11px] text-slate-400">
-          Phase 1 Foundation active. Modular TypeScript backend ready.
+        <p className="text-[11px] text-[#6B7280] font-normal leading-relaxed">
+          Tactile Neumorphic design tokens loaded. NestJS backend active.
         </p>
       </div>
     </aside>

@@ -20,7 +20,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@ai-interview-coach/types": ["../../packages/types/src"],
+      "@ai-interview-coach/shared": ["../../packages/shared/src"],
+      "@ai-interview-coach/ai": ["../../packages/ai/src"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

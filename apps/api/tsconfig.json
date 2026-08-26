@@ -3,21 +3,28 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "declaration": false,
+    "declaration": true,
+    "declarationMap": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "dist",
+    "rootDir": "src",
     "baseUrl": "./",
-    "incremental": true,
+    "paths": {
+      "@ai-interview-coach/types": ["../../packages/types/dist/index.d.ts"],
+      "@ai-interview-coach/shared": ["../../packages/shared/dist/index.d.ts"],
+      "@ai-interview-coach/ai": ["../../packages/ai/dist/index.d.ts"]
+    },
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "include": ["src/**/*"]
 }

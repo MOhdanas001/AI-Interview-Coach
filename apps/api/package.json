@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nest build",
+    "dev": "nest start --watch",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -63,6 +64,11 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@ai-interview-coach/types$": "<rootDir>/../../packages/types/src",
+      "^@ai-interview-coach/shared$": "<rootDir>/../../packages/shared/src",
+      "^@ai-interview-coach/ai$": "<rootDir>/../../packages/ai/src"
+    }
   }
 }

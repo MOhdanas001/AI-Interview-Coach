@@ -29,7 +29,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   const port = process.env.PORT || 3001;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   logger.log(`🚀 AI Interview Coach API running on: http://localhost:${port}/api/v1`);
   logger.log(`🩺 Health check URL: http://localhost:${port}/api/v1/health`);
 }

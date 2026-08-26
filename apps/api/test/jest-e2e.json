@@ -5,5 +5,10 @@
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@ai-interview-coach/types$": "<rootDir>/../../../packages/types/src",
+    "^@ai-interview-coach/shared$": "<rootDir>/../../../packages/shared/src",
+    "^@ai-interview-coach/ai$": "<rootDir>/../../../packages/ai/src"
   }
 }

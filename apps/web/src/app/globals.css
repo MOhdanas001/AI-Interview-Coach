@@ -3,19 +3,131 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 15, 23, 42;
-  --background-start-rgb: 248, 250, 252;
-  --background-end-rgb: 241, 245, 249;
+  --neu-bg: #E0E5EC;
+  --neu-text: #3D4852;
+  --neu-muted: #6B7280;
+  --neu-accent: #6C63FF;
+  --neu-accent-light: #8B84FF;
+  --neu-success: #38B2AC;
+
+  --shadow-light: rgba(255, 255, 255, 0.5);
+  --shadow-dark: rgba(163, 177, 198, 0.6);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--neu-bg);
+  color: var(--neu-text);
+  font-family: var(--font-body), 'DM Sans', -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), 'Plus Jakarta Sans', sans-serif;
+}
+
+@layer components {
+  /* Neumorphic Extruded Cards */
+  .neu-card {
+    background-color: #E0E5EC;
+    border-radius: 32px;
+    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    transition: all 300ms ease-out;
+  }
+
+  .neu-card-hover {
+    background-color: #E0E5EC;
+    border-radius: 32px;
+    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    transition: all 300ms ease-out;
+  }
+
+  .neu-card-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: 12px 12px 20px rgba(163, 177, 198, 0.7), -12px -12px 20px rgba(255, 255, 255, 0.6);
+  }
+
+  .neu-card-sm {
+    background-color: #E0E5EC;
+    border-radius: 16px;
+    box-shadow: 5px 5px 10px rgba(163, 177, 198, 0.6), -5px -5px 10px rgba(255, 255, 255, 0.5);
+    transition: all 300ms ease-out;
+  }
+
+  /* Neumorphic Inset Wells & Carved Containers */
+  .neu-well {
+    background-color: #E0E5EC;
+    border-radius: 16px;
+    box-shadow: inset 6px 6px 10px rgba(163, 177, 198, 0.6), inset -6px -6px 10px rgba(255, 255, 255, 0.5);
+  }
+
+  .neu-well-deep {
+    background-color: #E0E5EC;
+    border-radius: 24px;
+    box-shadow: inset 10px 10px 20px rgba(163, 177, 198, 0.7), inset -10px -10px 20px rgba(255, 255, 255, 0.6);
+  }
+
+  .neu-well-sm {
+    background-color: #E0E5EC;
+    border-radius: 12px;
+    box-shadow: inset 3px 3px 6px rgba(163, 177, 198, 0.6), inset -3px -3px 6px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Neumorphic Buttons */
+  .neu-button {
+    background-color: #E0E5EC;
+    color: #3D4852;
+    border-radius: 16px;
+    font-weight: 600;
+    box-shadow: 5px 5px 10px rgba(163, 177, 198, 0.6), -5px -5px 10px rgba(255, 255, 255, 0.5);
+    transition: all 300ms ease-out;
+  }
+
+  .neu-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 8px 8px 14px rgba(163, 177, 198, 0.7), -8px -8px 14px rgba(255, 255, 255, 0.6);
+  }
+
+  .neu-button:active {
+    transform: translateY(0.5px);
+    box-shadow: inset 5px 5px 8px rgba(163, 177, 198, 0.6), inset -5px -5px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .neu-button-primary {
+    background-color: #6C63FF;
+    color: #FFFFFF;
+    border-radius: 16px;
+    font-weight: 700;
+    box-shadow: 6px 6px 14px rgba(108, 99, 255, 0.35), -6px -6px 14px rgba(255, 255, 255, 0.6);
+    transition: all 300ms ease-out;
+  }
+
+  .neu-button-primary:hover {
+    background-color: #8B84FF;
+    transform: translateY(-1px);
+    box-shadow: 9px 9px 18px rgba(108, 99, 255, 0.45), -9px -9px 18px rgba(255, 255, 255, 0.7);
+  }
+
+  .neu-button-primary:active {
+    transform: translateY(0.5px);
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.25), inset -4px -4px 8px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Neumorphic Input Controls */
+  .neu-input {
+    background-color: #E0E5EC;
+    color: #3D4852;
+    border-radius: 16px;
+    box-shadow: inset 6px 6px 10px rgba(163, 177, 198, 0.6), inset -6px -6px 10px rgba(255, 255, 255, 0.5);
+    outline: none;
+    transition: all 300ms ease-out;
+  }
+
+  .neu-input::placeholder {
+    color: #A0AEC0;
+  }
+
+  .neu-input:focus {
+    box-shadow: inset 10px 10px 20px rgba(163, 177, 198, 0.7), inset -10px -10px 20px rgba(255, 255, 255, 0.6);
+    ring: 2px solid #6C63FF;
+  }
 }
