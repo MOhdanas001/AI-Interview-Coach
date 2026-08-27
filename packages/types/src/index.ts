@@ -45,6 +45,10 @@ export type InterviewStatus =
   | 'COMPLETED'
   | 'CANCELLED';
 
+export type MessageRole = 'SYSTEM' | 'INTERVIEWER' | 'CANDIDATE';
+
+export type DocumentType = 'RESUME' | 'JOB_DESCRIPTION';
+
 export interface UserProfileDto {
   id: string;
   userId: string;
@@ -158,4 +162,71 @@ export interface InterviewListFilterDto {
   difficulty?: InterviewDifficulty;
   status?: InterviewStatus;
   search?: string;
+}
+
+export interface MessageDto {
+  id: string;
+  interviewId: string;
+  sender: MessageRole;
+  content: string;
+  audioUrl?: string;
+  createdAt: string;
+}
+
+export interface SendMessageDto {
+  content: string;
+}
+
+export interface CandidateDocumentDto {
+  id: string;
+  userId: string;
+  title: string;
+  type: DocumentType;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateDocumentDto {
+  title: string;
+  type: DocumentType;
+  content: string;
+}
+
+export interface EvaluationReportDto {
+  id: string;
+  interviewId: string;
+  overallScore: number;
+  technicalScore: number;
+  communicationScore: number;
+  confidenceScore: number;
+  strengths: string[];
+  improvements: string[];
+  summary: string;
+  questionFeedbacks: Array<{
+    questionText: string;
+    userAnswer: string;
+    score: number;
+    feedback: string;
+  }>;
+  createdAt: string;
+}
+
+export interface AnalyticsOverviewDto {
+  totalInterviews: number;
+  completedInterviews: number;
+  averageScore: number;
+  totalPracticeMinutes: number;
+  radarScores: {
+    technical: number;
+    systemDesign: number;
+    behavioral: number;
+    hr: number;
+    coding: number;
+  };
+  recentScores: Array<{
+    date: string;
+    score: number;
+    title: string;
+  }>;
 }

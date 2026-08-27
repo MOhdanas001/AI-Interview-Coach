@@ -15,15 +15,15 @@
 
 - [x] **Full-Stack Monorepo Architecture**: Clean separation between Next.js frontend, NestJS backend microservices, and shared workspace packages *(Phase 1)*.
 - [x] **Health Check & API Versioning**: Standardized URI versioning (`/api/v1`) with global exception handling *(Phase 1)*.
-- [x] **Authentication & User Profiles**: Secure JWT authentication, Argon2id hashing, refresh token rotation, and profile management *(Phase 2)*.
+- [x] **Authentication & User Profiles**: Secure JWT authentication, Argon2id hashing, refresh token rotation, and career profile preferences *(Phase 2)*.
 - [x] **Interview Management**: Configurable interviews across Technical, HR, Behavioral, Coding, System Design roles with state machine *(Phase 3)*.
-- [ ] **AI Interviewer**: Provider abstraction engine supporting OpenAI & Pipecat with prompt engineering *(Phase 4)*.
-- [ ] **Real-Time Voice Streaming**: Low-latency WebSocket / WebRTC audio streaming with interruption detection *(Phase 5)*.
-- [ ] **Animated Avatar**: 3D avatar with real-time speech visualizer powered by React Three Fiber & Framer Motion *(Phase 6)*.
-- [ ] **RAG & Candidate Memory**: Resume & Job Description parsing with vector search via PostgreSQL `pgvector` & Redis *(Phase 7)*.
-- [ ] **Intelligent Evaluation & Feedback**: Granular scoring on technical correctness, communication, and confidence *(Phase 8)*.
-- [ ] **Analytics & History**: Interactive charts tracking performance over time and targeted weak area practice *(Phase 9)*.
-- [ ] **Production Hardening**: Rate limiting, security headers, helmet, and production Docker compose setup *(Phase 10)*.
+- [x] **AI Interviewer Engine**: Domain system prompt engineering & AI provider abstractions (`MockAIProvider`, `OpenAIProvider`) *(Phase 4)*.
+- [x] **Real-Time Voice Streaming**: Low-latency WebSocket gateway (`/voice`) handling audio stream simulation & visualizer feedback *(Phase 5)*.
+- [x] **Animated AI Avatar**: Tactile Neumorphic 3D / SVG speech visualizer avatar with dynamic listening, thinking, and speaking states *(Phase 6)*.
+- [x] **RAG & Candidate Memory**: Resume & Job Description vector store (`pgvector`) for contextual AI prompt injection *(Phase 7)*.
+- [x] **Intelligent Evaluation & Feedback**: Multi-metric evaluation engine (Overall, Technical, Communication, Confidence scores) and detailed reports *(Phase 8)*.
+- [x] **Analytics & Performance Dashboard**: Interactive skill radar breakdown, score progression timeline, and targeted weak-area practice drills *(Phase 9)*.
+- [x] **Production Hardening**: Rate limiting, security headers, CORS origin validation, and production Docker Compose setup *(Phase 10)*.
 
 ---
 
@@ -31,13 +31,12 @@
 
 ```mermaid
 graph TD
-    User([User Web Browser]) -->|HTTP / React 18| WebApp[Next.js App Router]
+    User([Candidate Web Browser]) -->|HTTP / React 18| WebApp[Next.js App Router]
     WebApp -->|REST API v1| ApiServer[NestJS API Microservice]
-    WebApp -->|WebSocket / WebRTC| VoiceGateway[Realtime Audio Gateway]
+    WebApp -->|WebSocket / Voice Gateway| VoiceGateway[Realtime Audio Gateway]
     
     ApiServer -->|Prisma ORM| PostgresDB[(PostgreSQL + pgvector)]
     ApiServer -->|Session & Cache| RedisCache[(Redis Store)]
-    ApiServer -->|BullMQ Jobs| WorkerQueue[Background Job Queue]
     
     ApiServer -->|Provider Abstraction| AIService[AI Engine]
     AIService -->|LLM & Embeddings| OpenAI[OpenAI Realtime API]
@@ -52,39 +51,34 @@ graph TD
 - **UI Components**: React 18, Tailwind CSS, Lucide Icons, Framer Motion
 - **Design System**: Neumorphic / Soft UI `#E0E5EC` Tactile Palette
 - **State Management**: Zustand & React Context
-- **Graphics**: React Three Fiber / Three.js *(Phase 6)*
 
 ### Backend
 - **Framework**: NestJS (Node.js & TypeScript)
+- **Real-Time**: `@nestjs/websockets` & Socket.IO
 - **Security**: Argon2id Hashing, Passport JWT Token Rotation
 - **API Standard**: REST with URI versioning (`/api/v1`), WebSockets
-- **Validation & Errors**: Class-Validator & Global Exception Filters
 
 ### Database & Cache
 - **Database**: PostgreSQL 16 with `pgvector`
-- **ORM**: Prisma ORM (User, UserProfile, RefreshToken, Interview, Question)
+- **ORM**: Prisma ORM (User, UserProfile, RefreshToken, Interview, Question, Message, CandidateDocument, EvaluationReport)
 - **Caching & State**: Redis 7
-- **Queue**: BullMQ
-
-### AI & Realtime
-- **Providers**: OpenAI Realtime API, Provider Abstraction Layer (Pipecat compatible)
 
 ---
 
-## Development Roadmap
+## Complete Development Roadmap
 
 | Phase | Milestone | Status | Description |
 | :--- | :--- | :--- | :--- |
 | **Phase 1** | **Foundation & Architecture** | 🟢 **Completed** | Full-stack monorepo, NestJS API health check, Next.js dashboard shell, shared packages, Docker Compose. |
 | **Phase 2** | **Authentication & User Profile** | 🟢 **Completed** | JWT auth, Argon2id, refresh token rotation, Prisma PostgreSQL models, Neumorphic Register, Login & Profile UIs. |
 | **Phase 3** | **Interview Management** | 🟢 **Completed** | Creation, configuration (Role, Difficulty, Duration, Type), state machine, Prisma models, Neumorphic Wizard & Lobby UIs. |
-| **Phase 4** | AI Text Interviewer | 🟡 Planned | Conversational AI agent, provider abstractions, stateful Q&A. |
-| **Phase 5** | Real-Time Voice Interview | 🟡 Planned | Audio streaming, WebSockets, real-time transcription & interruption handling. |
-| **Phase 6** | Animated AI Avatar | 🟡 Planned | React Three Fiber 3D avatar, lip sync, state visualizers. |
-| **Phase 7** | RAG & User Memory | 🟡 Planned | Resume/JD PDF upload, vector search (pgvector), long-term candidate memory. |
-| **Phase 8** | Intelligent Evaluation | 🟡 Planned | Multi-metric evaluation reports, scoring engine, targeted study plan. |
-| **Phase 9** | Dashboard & Analytics | 🟡 Planned | Recharts performance charts, interview history, weak area drills. |
-| **Phase 10** | Production Hardening | 🟡 Planned | Rate limiting, CORS, security audit, production Docker orchestration. |
+| **Phase 4** | **AI Text Interviewer** | 🟢 **Completed** | AI provider engine, domain prompts, chat REST microservice, Neumorphic Live Session Room. |
+| **Phase 5** | **Real-Time Voice Interview** | 🟢 **Completed** | NestJS WebSocket voice gateway (`/voice`), audio chunk streaming & visualizer spectrum events. |
+| **Phase 6** | **Animated AI Avatar** | 🟢 **Completed** | Neumorphic Animated AI Avatar with listening, thinking, speaking states and audio spectrum ring. |
+| **Phase 7** | **RAG & Candidate Memory** | 🟢 **Completed** | Resume & JD document parser, chunking pipeline, pgvector integration, Neumorphic RAG Document Manager UI. |
+| **Phase 8** | **Intelligent Evaluation** | 🟢 **Completed** | Multi-metric evaluation reports (Overall, Technical, Communication, Confidence) & Neumorphic Report UI. |
+| **Phase 9** | **Dashboard & Analytics** | 🟢 **Completed** | Neumorphic Analytics Dashboard with skill radar breakdown, score progression timeline, and target drills. |
+| **Phase 10** | **Production Hardening** | 🟢 **Completed** | Rate limiting, CORS, security audit, production Docker orchestration across all 5 container services. |
 
 ---
 
@@ -92,8 +86,8 @@ graph TD
 
 ### Prerequisites
 - Node.js >= 20.0.0
-- pnpm >= 9.0.0 (or npm / yarn)
-- Docker & Docker Compose (optional for local DB/Redis)
+- pnpm >= 9.0.0
+- Docker & Docker Compose
 
 ### Local Installation
 
@@ -120,7 +114,7 @@ graph TD
    pnpm --filter @ai-interview-coach/ai build
    ```
 
-5. **Start development servers:**
+5. **Start development stack:**
    ```bash
    pnpm dev
    ```
@@ -132,7 +126,7 @@ graph TD
 
 ## Docker Setup
 
-To launch the full stack with PostgreSQL (pgvector), Redis, NestJS API, and Next.js Web:
+To launch all 10 phases using Docker Compose:
 
 ```bash
 docker-compose up --build -d
@@ -147,8 +141,6 @@ curl http://localhost:3001/api/v1/health
 
 ## Testing
 
-Run unit and integration tests across all workspaces:
-
 ```bash
 # Run all workspace tests
 pnpm test
@@ -159,25 +151,6 @@ pnpm test:api
 # Run NestJS API E2E tests
 pnpm test:api:e2e
 ```
-
----
-
-## API Documentation
-
-### Auth Endpoints (Phase 2)
-- `POST /api/v1/auth/register`: Register candidate account & return tokens.
-- `POST /api/v1/auth/login`: Authenticate candidate & return tokens.
-- `POST /api/v1/auth/refresh`: Rotate refresh token & return new token pair.
-- `POST /api/v1/auth/logout`: Revoke active session refresh tokens.
-- `GET /api/v1/users/me`: Fetch authenticated candidate profile.
-- `PATCH /api/v1/users/me`: Update candidate career preferences & tech stack.
-
-### Interview Management Endpoints (Phase 3)
-- `POST /api/v1/interviews`: Create new interview practice session & seed questions.
-- `GET /api/v1/interviews`: List candidate interview sessions with filters & search.
-- `GET /api/v1/interviews/:id`: Fetch single interview session details & seeded questions.
-- `PATCH /api/v1/interviews/:id/status`: Update interview session state machine.
-- `DELETE /api/v1/interviews/:id`: Delete or cancel interview practice session.
 
 ---
 

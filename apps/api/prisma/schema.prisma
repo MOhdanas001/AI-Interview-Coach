@@ -10,17 +10,18 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(uuid())
-  email         String         @unique
+  id            String              @id @default(uuid())
+  email         String              @unique
   passwordHash  String
   fullName      String
   avatarUrl     String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
 
   profile       UserProfile?
   refreshTokens RefreshToken[]
   interviews    Interview[]
+  documents     CandidateDocument[]
 
   @@map("users")
 }
@@ -57,6 +58,17 @@ enum InterviewStatus {
   PAUSED
   COMPLETED
   CANCELLED
+}
+
+enum MessageRole {
+  SYSTEM
+  INTERVIEWER
+  CANDIDATE
+}
+
+enum DocumentType {
+  RESUME
+  JOB_DESCRIPTION
 }
 
 model UserProfile {
@@ -108,6 +120,8 @@ model Interview {
   updatedAt          DateTime            @updatedAt
 
   questions          Question[]
+  messages           Message[]
+  evaluationReport   EvaluationReport?
 
   @@index([userId])
   @@index([status])
@@ -130,4 +144,63 @@ model Question {
 
   @@index([interviewId])
   @@map("questions")
+}
+
+model Message {
+  id          String      @id @default(uuid())
+  interviewId String
+  interview   Interview   @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  sender      MessageRole
+  content     String
+  audioUrl    String?
+  createdAt   DateTime    @default(now())
+
+  @@index([interviewId])
+  @@map("messages")
+}
+
+model CandidateDocument {
+  id        String         @id @default(uuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  type      DocumentType   @default(RESUME)
+  content   String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  chunks    DocumentChunk[]
+
+  @@index([userId])
+  @@map("candidate_documents")
+}
+
+model DocumentChunk {
+  id         String            @id @default(uuid())
+  documentId String
+  document   CandidateDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  orderIndex Int
+  content    String
+  createdAt  DateTime          @default(now())
+
+  @@index([documentId])
+  @@map("document_chunks")
+}
+
+model EvaluationReport {
+  id                 String    @id @default(uuid())
+  interviewId        String    @unique
+  interview          Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  overallScore       Float
+  technicalScore     Float
+  communicationScore Float
+  confidenceScore    Float
+  strengths          String[]  @default([])
+  improvements       String[]  @default([])
+  summary            String
+  questionFeedbacks  String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@map("evaluation_reports")
 }

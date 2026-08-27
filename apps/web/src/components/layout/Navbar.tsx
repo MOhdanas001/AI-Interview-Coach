@@ -2,7 +2,17 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Bot, Sparkles, LayoutDashboard, User, LogOut, ChevronDown } from 'lucide-react';
+import {
+  Bot,
+  Sparkles,
+  LayoutDashboard,
+  User,
+  LogOut,
+  ChevronDown,
+  Video,
+  Database,
+  BarChart3,
+} from 'lucide-react';
 import { HealthBadge } from '../ui/HealthBadge';
 import { useAuth } from '@/context/AuthContext';
 
@@ -27,22 +37,37 @@ export function Navbar() {
           </div>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6">
           <HealthBadge />
 
-          <nav className="flex items-center gap-2 p-1.5 rounded-2xl neu-well-sm">
-            <Link
-              href="/"
-              className="px-4 py-2 rounded-xl text-sm font-semibold text-[#3D4852] hover:text-[#6C63FF] transition-all"
-            >
-              Overview
-            </Link>
+          <nav className="flex items-center gap-1.5 p-1.5 rounded-2xl neu-well-sm">
             <Link
               href="/dashboard"
-              className="px-4 py-2 rounded-xl text-sm font-semibold text-[#6C63FF] neu-well flex items-center gap-2"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#3D4852] hover:text-[#6C63FF] transition-all flex items-center gap-1.5"
             >
-              <LayoutDashboard className="w-4 h-4 text-[#6C63FF]" />
-              Dashboard Shell
+              <LayoutDashboard className="w-3.5 h-3.5 text-[#6C63FF]" />
+              Dashboard
+            </Link>
+            <Link
+              href="/interviews"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#3D4852] hover:text-[#6C63FF] transition-all flex items-center gap-1.5"
+            >
+              <Video className="w-3.5 h-3.5 text-[#6C63FF]" />
+              Interviews
+            </Link>
+            <Link
+              href="/documents"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#3D4852] hover:text-[#6C63FF] transition-all flex items-center gap-1.5"
+            >
+              <Database className="w-3.5 h-3.5 text-[#38B2AC]" />
+              RAG Memory
+            </Link>
+            <Link
+              href="/analytics"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#3D4852] hover:text-[#6C63FF] transition-all flex items-center gap-1.5"
+            >
+              <BarChart3 className="w-3.5 h-3.5 text-[#6C63FF]" />
+              Analytics
             </Link>
           </nav>
         </div>
@@ -83,12 +108,21 @@ export function Navbar() {
                   </Link>
 
                   <Link
-                    href="/dashboard"
+                    href="/interviews"
                     onClick={() => setDropdownOpen(false)}
                     className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-[#3D4852] hover:bg-[#D4D9E2] transition-colors"
                   >
-                    <LayoutDashboard className="w-4 h-4 text-[#6C63FF]" />
-                    Dashboard
+                    <Video className="w-4 h-4 text-[#6C63FF]" />
+                    My Interviews
+                  </Link>
+
+                  <Link
+                    href="/analytics"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-[#3D4852] hover:bg-[#D4D9E2] transition-colors"
+                  >
+                    <BarChart3 className="w-4 h-4 text-[#6C63FF]" />
+                    Analytics Dashboard
                   </Link>
 
                   <button
