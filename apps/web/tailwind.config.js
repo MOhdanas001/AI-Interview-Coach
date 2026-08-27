@@ -10,8 +10,8 @@ module.exports = {
       colors: {
         neu: {
           bg: '#E0E5EC',
-          text: '#3D4852',
-          muted: '#6B7280',
+          text: '#171819ff',
+          muted: '#252628ff',
           accent: '#6C63FF',
           'accent-light': '#8B84FF',
           success: '#38B2AC',

@@ -26,11 +26,16 @@ export type InterviewType =
 
 export type InterviewDifficulty = 'EASY' | 'MEDIUM' | 'HARD' | 'EXPERT';
 
-export type ExperienceLevel =
-  | 'FRESHER'
-  | 'ONE_TO_TWO_YEARS'
-  | 'THREE_TO_FIVE_YEARS'
-  | 'FIVE_PLUS_YEARS';
+export enum SeniorityLevel {
+  JUNIOR = 'JUNIOR',
+  MID_LEVEL = 'MID_LEVEL',
+  SENIOR = 'SENIOR',
+  LEAD = 'LEAD',
+  PRINCIPAL = 'PRINCIPAL',
+  EXECUTIVE = 'EXECUTIVE',
+}
+
+export type ExperienceLevel = SeniorityLevel;
 
 export type InterviewStatus =
   | 'IDLE'
@@ -42,11 +47,60 @@ export type InterviewStatus =
 
 export interface UserProfileDto {
   id: string;
-  email: string;
-  fullName: string;
-  role?: string;
-  experienceLevel?: ExperienceLevel;
+  userId: string;
   targetRole?: string;
+  targetCompany?: string;
+  seniorityLevel?: SeniorityLevel;
+  techStack: string[];
+  bio?: string;
+  yearsOfExperience: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface UserDto {
+  id: string;
+  email: string;
+  fullName: string;
+  avatarUrl?: string;
+  createdAt: string;
+  updatedAt: string;
+  profile?: UserProfileDto | null;
+}
+
+export interface AuthTokens {
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
+}
+
+export interface AuthResponse {
+  user: UserDto;
+  tokens: AuthTokens;
+}
+
+export interface RegisterDto {
+  email: string;
+  password: string;
+  fullName: string;
+}
+
+export interface LoginDto {
+  email: string;
+  password: string;
+}
+
+export interface RefreshTokenDto {
+  refreshToken: string;
+}
+
+export interface UpdateProfileDto {
+  fullName?: string;
+  avatarUrl?: string;
+  targetRole?: string;
+  targetCompany?: string;
+  seniorityLevel?: SeniorityLevel;
+  techStack?: string[];
+  bio?: string;
+  yearsOfExperience?: number;
 }

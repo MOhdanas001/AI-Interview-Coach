@@ -15,7 +15,7 @@
 
 - [x] **Full-Stack Monorepo Architecture**: Clean separation between Next.js frontend, NestJS backend microservices, and shared workspace packages.
 - [x] **Health Check & API Versioning**: Standardized URI versioning (`/api/v1`) with global exception handling.
-- [ ] **Authentication & User Profiles**: Secure JWT authentication, Argon2 hashing, refresh token rotation, and profile management *(Phase 2)*.
+- [x] **Authentication & User Profiles**: Secure JWT authentication, Argon2id hashing, refresh token rotation, and profile management *(Phase 2)*.
 - [ ] **Interview Management**: Configurable interviews across Technical, HR, Behavioral, Coding, System Design roles *(Phase 3)*.
 - [ ] **AI Interviewer**: Provider abstraction engine supporting OpenAI & Pipecat with prompt engineering *(Phase 4)*.
 - [ ] **Real-Time Voice Streaming**: Low-latency WebSocket / WebRTC audio streaming with interruption detection *(Phase 5)*.
@@ -50,11 +50,12 @@ graph TD
 ### Frontend
 - **Framework**: Next.js 14 (App Router)
 - **UI Components**: React 18, Tailwind CSS, Lucide Icons, Framer Motion
-- **State Management**: Zustand
+- **State Management**: Zustand & React Context
 - **Graphics**: React Three Fiber / Three.js *(Phase 6)*
 
 ### Backend
 - **Framework**: NestJS (Node.js & TypeScript)
+- **Security**: Argon2id Hashing, Passport JWT Token Rotation
 - **API Standard**: REST with URI versioning (`/api/v1`), WebSockets
 - **Validation & Errors**: Class-Validator & Global Exception Filters
 
@@ -74,7 +75,7 @@ graph TD
 | Phase | Milestone | Status | Description |
 | :--- | :--- | :--- | :--- |
 | **Phase 1** | **Foundation & Architecture** | 🟢 **Completed** | Full-stack monorepo, NestJS API health check, Next.js dashboard shell, shared packages, Docker Compose. |
-| **Phase 2** | Authentication & User Profile | 🟡 Planned | JWT auth, Argon2, refresh token rotation, user profiles. |
+| **Phase 2** | **Authentication & User Profile** | 🟢 **Completed** | JWT auth, Argon2id, refresh token rotation, Prisma PostgreSQL models, Neumorphic Register, Login & Profile UIs. |
 | **Phase 3** | Interview Management | 🟡 Planned | Creation, configuration (Role, Difficulty, Duration), state machine. |
 | **Phase 4** | AI Text Interviewer | 🟡 Planned | Conversational AI agent, provider abstractions, stateful Q&A. |
 | **Phase 5** | Real-Time Voice Interview | 🟡 Planned | Audio streaming, WebSockets, real-time transcription & interruption handling. |
@@ -162,16 +163,13 @@ pnpm test:api:e2e
 
 ## API Documentation
 
-### Health Check Endpoint
-- **URL**: `GET /api/v1/health`
-- **Response**:
-  ```json
-  {
-    "status": "ok",
-    "service": "ai-interview-coach-api",
-    "timestamp": "2026-08-26T20:14:16Z"
-  }
-  ```
+### Auth Endpoints (Phase 2)
+- `POST /api/v1/auth/register`: Register candidate account & return tokens.
+- `POST /api/v1/auth/login`: Authenticate candidate & return tokens.
+- `POST /api/v1/auth/refresh`: Rotate refresh token & return new token pair.
+- `POST /api/v1/auth/logout`: Revoke active session refresh tokens.
+- `GET /api/v1/users/me`: Fetch authenticated candidate profile.
+- `PATCH /api/v1/users/me`: Update candidate career preferences & tech stack.
 
 ---
 

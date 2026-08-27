@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { AuthProvider } from '@/context/AuthContext';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -32,9 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${plusJakarta.variable} ${dmSans.variable}`}>
       <body className="bg-[#E0E5EC] text-[#3D4852] font-body min-h-screen flex flex-col antialiased selection:bg-[#6C63FF] selection:text-white">
-        <Navbar />
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
