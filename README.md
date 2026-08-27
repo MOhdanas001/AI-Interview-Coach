@@ -13,10 +13,10 @@
 
 ## Features
 
-- [x] **Full-Stack Monorepo Architecture**: Clean separation between Next.js frontend, NestJS backend microservices, and shared workspace packages.
-- [x] **Health Check & API Versioning**: Standardized URI versioning (`/api/v1`) with global exception handling.
+- [x] **Full-Stack Monorepo Architecture**: Clean separation between Next.js frontend, NestJS backend microservices, and shared workspace packages *(Phase 1)*.
+- [x] **Health Check & API Versioning**: Standardized URI versioning (`/api/v1`) with global exception handling *(Phase 1)*.
 - [x] **Authentication & User Profiles**: Secure JWT authentication, Argon2id hashing, refresh token rotation, and profile management *(Phase 2)*.
-- [ ] **Interview Management**: Configurable interviews across Technical, HR, Behavioral, Coding, System Design roles *(Phase 3)*.
+- [x] **Interview Management**: Configurable interviews across Technical, HR, Behavioral, Coding, System Design roles with state machine *(Phase 3)*.
 - [ ] **AI Interviewer**: Provider abstraction engine supporting OpenAI & Pipecat with prompt engineering *(Phase 4)*.
 - [ ] **Real-Time Voice Streaming**: Low-latency WebSocket / WebRTC audio streaming with interruption detection *(Phase 5)*.
 - [ ] **Animated Avatar**: 3D avatar with real-time speech visualizer powered by React Three Fiber & Framer Motion *(Phase 6)*.
@@ -50,6 +50,7 @@ graph TD
 ### Frontend
 - **Framework**: Next.js 14 (App Router)
 - **UI Components**: React 18, Tailwind CSS, Lucide Icons, Framer Motion
+- **Design System**: Neumorphic / Soft UI `#E0E5EC` Tactile Palette
 - **State Management**: Zustand & React Context
 - **Graphics**: React Three Fiber / Three.js *(Phase 6)*
 
@@ -61,7 +62,7 @@ graph TD
 
 ### Database & Cache
 - **Database**: PostgreSQL 16 with `pgvector`
-- **ORM**: Prisma ORM
+- **ORM**: Prisma ORM (User, UserProfile, RefreshToken, Interview, Question)
 - **Caching & State**: Redis 7
 - **Queue**: BullMQ
 
@@ -76,7 +77,7 @@ graph TD
 | :--- | :--- | :--- | :--- |
 | **Phase 1** | **Foundation & Architecture** | 🟢 **Completed** | Full-stack monorepo, NestJS API health check, Next.js dashboard shell, shared packages, Docker Compose. |
 | **Phase 2** | **Authentication & User Profile** | 🟢 **Completed** | JWT auth, Argon2id, refresh token rotation, Prisma PostgreSQL models, Neumorphic Register, Login & Profile UIs. |
-| **Phase 3** | Interview Management | 🟡 Planned | Creation, configuration (Role, Difficulty, Duration), state machine. |
+| **Phase 3** | **Interview Management** | 🟢 **Completed** | Creation, configuration (Role, Difficulty, Duration, Type), state machine, Prisma models, Neumorphic Wizard & Lobby UIs. |
 | **Phase 4** | AI Text Interviewer | 🟡 Planned | Conversational AI agent, provider abstractions, stateful Q&A. |
 | **Phase 5** | Real-Time Voice Interview | 🟡 Planned | Audio streaming, WebSockets, real-time transcription & interruption handling. |
 | **Phase 6** | Animated AI Avatar | 🟡 Planned | React Three Fiber 3D avatar, lip sync, state visualizers. |
@@ -170,6 +171,13 @@ pnpm test:api:e2e
 - `POST /api/v1/auth/logout`: Revoke active session refresh tokens.
 - `GET /api/v1/users/me`: Fetch authenticated candidate profile.
 - `PATCH /api/v1/users/me`: Update candidate career preferences & tech stack.
+
+### Interview Management Endpoints (Phase 3)
+- `POST /api/v1/interviews`: Create new interview practice session & seed questions.
+- `GET /api/v1/interviews`: List candidate interview sessions with filters & search.
+- `GET /api/v1/interviews/:id`: Fetch single interview session details & seeded questions.
+- `PATCH /api/v1/interviews/:id/status`: Update interview session state machine.
+- `DELETE /api/v1/interviews/:id`: Delete or cancel interview practice session.
 
 ---
 

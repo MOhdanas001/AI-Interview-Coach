@@ -20,6 +20,7 @@ model User {
 
   profile       UserProfile?
   refreshTokens RefreshToken[]
+  interviews    Interview[]
 
   @@map("users")
 }
@@ -31,6 +32,31 @@ enum SeniorityLevel {
   LEAD
   PRINCIPAL
   EXECUTIVE
+}
+
+enum InterviewType {
+  TECHNICAL
+  HR
+  BEHAVIORAL
+  CODING
+  SYSTEM_DESIGN
+  MIXED
+}
+
+enum InterviewDifficulty {
+  EASY
+  MEDIUM
+  HARD
+  EXPERT
+}
+
+enum InterviewStatus {
+  IDLE
+  READY
+  IN_PROGRESS
+  PAUSED
+  COMPLETED
+  CANCELLED
 }
 
 model UserProfile {
@@ -60,4 +86,48 @@ model RefreshToken {
 
   @@index([userId])
   @@map("refresh_tokens")
+}
+
+model Interview {
+  id                 String              @id @default(uuid())
+  userId             String
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title              String
+  type               InterviewType       @default(TECHNICAL)
+  difficulty         InterviewDifficulty @default(MEDIUM)
+  status             InterviewStatus     @default(IDLE)
+  targetRole         String
+  targetCompany      String?
+  durationMinutes    Int                 @default(30)
+  customInstructions String?
+  score              Float?
+  summary            String?
+  startedAt          DateTime?
+  endedAt            DateTime?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  questions          Question[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("interviews")
+}
+
+model Question {
+  id             String    @id @default(uuid())
+  interviewId    String
+  interview      Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  orderIndex     Int
+  text           String
+  category       String?
+  expectedAnswer String?
+  userAnswer     String?
+  feedback       String?
+  score          Float?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([interviewId])
+  @@map("questions")
 }

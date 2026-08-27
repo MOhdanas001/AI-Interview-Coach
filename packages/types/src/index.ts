@@ -104,3 +104,58 @@ export interface UpdateProfileDto {
   bio?: string;
   yearsOfExperience?: number;
 }
+
+export interface QuestionDto {
+  id: string;
+  interviewId: string;
+  orderIndex: number;
+  text: string;
+  category?: string;
+  expectedAnswer?: string;
+  userAnswer?: string;
+  feedback?: string;
+  score?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface InterviewDto {
+  id: string;
+  userId: string;
+  title: string;
+  type: InterviewType;
+  difficulty: InterviewDifficulty;
+  status: InterviewStatus;
+  targetRole: string;
+  targetCompany?: string;
+  durationMinutes: number;
+  customInstructions?: string;
+  score?: number;
+  summary?: string;
+  startedAt?: string;
+  endedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+  questions?: QuestionDto[];
+}
+
+export interface CreateInterviewDto {
+  title?: string;
+  type: InterviewType;
+  difficulty: InterviewDifficulty;
+  targetRole: string;
+  targetCompany?: string;
+  durationMinutes?: number;
+  customInstructions?: string;
+}
+
+export interface UpdateInterviewStatusDto {
+  status: InterviewStatus;
+}
+
+export interface InterviewListFilterDto {
+  type?: InterviewType;
+  difficulty?: InterviewDifficulty;
+  status?: InterviewStatus;
+  search?: string;
+}
